@@ -1,0 +1,64 @@
+<!-- EJS (Embedded JavaScript) is a templating engine for JavaScript that enables dynamic content generation for web applications. 
+EJS allows developers to write HTML templates with embedded JavaScript code that is evaluated and rendered on the server-side, resulting in dynamic content being served to the client.
+EJS provides a simple syntax for injecting dynamic data into HTML templates, making it easier to manage complex web applications that require frequent content updates. It allows developers to create reusable components and layouts, making it easier to maintain a consistent look and feel across the entire web application. Some of the benefits of using EJS include:
+    1.  Code reusability: EJS allows developers to create reusable components and layouts that can be used across multiple pages, reducing duplication and making it easier to maintain consistency in the application.
+    2.  Dynamic content: EJS allows developers to inject dynamic content into HTML templates, such as user-generated content, database data,
+    or real-time data from APIs.
+    3.  Easy to learn: EJS has a simple syntax that is easy to understand and learn, even for developers with minimal experience in web development.
+    4.  Server-side rendering: EJS allows developers to render web pages on the server-side,
+    which can improve the performance and accessibility of the web application.
+ In summary, EJS is a powerful tool that makes it easier to manage complex web applications by enabling dynamic content generation and code reusability.
+  -->
+
+
+
+
+<!-- "< %" 
+    javascript code here %>  -->
+<!--  < no space here actually %= javascript variable here %> -->
+<!-- that is used to indicate that it is javascript code only control flow is allowed in ejs to write the js logic because we do not want to mess up things by mixing content and logic right and also the ejs file should be in views folder for it to work -->
+
+<%- include("header") -%>
+    <div class="box" id="heading">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+    <div class="box">
+        <%newListItems.forEach(function(item){%>
+            <form action="/delete" method="post">
+                <div class="item">
+                    <!-- checkbox is having value of id which is required to delete the selected item and post request is made when submit button is clicked and since the button is not being used here we are using onchange attribute on checkbox to submit without the button -->
+                    <input type="checkbox" name="checkbox" value="<%=item._id%>" onchange="this.form.submit()">
+                    <p>
+                        <!-- since we are passing the database elements or whatever you call it it displays id and all other details but we are concerned with only the attribute that we defined that is name and hence we are displaying the same here using for each loop -->
+                        <%= item.name%>
+                    </p>
+                </div>
+                <!-- this input is for the situation when the list the user wants to go to is not root then we will use this attribute to check if the user is in root route or custom list and accordingly  render the website -->
+                <input type="hidden" name="listname" value="<%=listTitle%>"> </form>
+
+            <% })%>
+
+
+
+
+
+
+                <form class="item" action="/" method="post">
+
+                    <!-- /=> root route or home route -->
+
+                    <input name="newitem" type="text" placeholder="New Task" autocomplete="off">
+                    <!-- listTitle can be anything if its root route it will be the day if not it will be the name of the custom list name -->
+                    <button type="submit" name="list" value="<%=listTitle%>">+</button>
+
+                </form>
+    </div>
+    <div class="box">
+        <form action="/new" method="post">
+            <input type="text" name="newlist" placeholder="Add New List" autocomplete="off">
+            <button type="submit" name="newList">+</button>
+        </form>
+    </div>
+    <%- include("footer") -%>
