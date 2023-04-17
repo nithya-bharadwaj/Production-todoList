@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
 // body-parser is a middleware function that is used to parse the body of an incoming request and make it available on the request object as req.body. This is useful when you're expecting data to be sent from the client, such as when submitting a form or sending data via AJAX.
 
 
@@ -76,7 +76,7 @@ app.get('/', function(req, res) {
                         async function insert() {
                             await Item.insertMany(defaultItems).then(() => {
 
-                                // c onsole.log("Succesfully saved to todoListDB");
+                                console.log("Succesfully saved to todoListDB");
 
                             }).catch((err) => {
                                 // console.log("error" + err);
@@ -124,7 +124,7 @@ app.post("/", function(req, res) {
         // if not root route first find the list and then add the input to items array of the list collection
         async function find() {
             await List.findOne({ name: listname }).then((query, error) => {
-                // console.log(query);
+                console.log(query);
                 //pushing the itemname to the items array
                 query.items.push(itemname);
                 query.save();
@@ -218,6 +218,6 @@ app.post("/new", function(req, res) {
 })
 
 app.listen(PORT, function() {
-    // console.log("Server started on port 3000");
+    console.log("Server started on port 3000");
 });
 //mongoose has been updated recently so now most of the operations are async await format so i have created template file in mongodb folder which contains all crud operations and anything else should be referred from documentation and not some random videos
