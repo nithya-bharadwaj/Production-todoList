@@ -1,4 +1,5 @@
 const express = require('express');
+const PORT = process.env.PORT || 3030;
 // body-parser is a middleware function that is used to parse the body of an incoming request and make it available on the request object as req.body. This is useful when you're expecting data to be sent from the client, such as when submitting a form or sending data via AJAX.
 
 
@@ -216,7 +217,7 @@ app.post("/new", function(req, res) {
 
 })
 
-app.listen(3000, function() {
+app.listen(PORT, function() {
     // console.log("Server started on port 3000");
 });
 //mongoose has been updated recently so now most of the operations are async await format so i have created template file in mongodb folder which contains all crud operations and anything else should be referred from documentation and not some random videos
