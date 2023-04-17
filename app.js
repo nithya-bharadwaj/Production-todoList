@@ -26,9 +26,11 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 //connecting to mongodb
 //todolistDB is the name of the database if it is present it connects to it if not creates and then connects
-mongoose.connect("mongodb://127.0.0.1:27017/todolistDB", {
-    useNewUrlParser: true
-});
+// mongoose.connect("mongodb://127.0.0.1:27017/todolistDB", {
+//instead of using local server we are using mongodb cluster for cloud service and the special characters must be encoded so @ is encoded as %40
+// mongo "mongodb+srv://cluster0.zgobaev.mongodb.net/todolistDB" --apiVersion 1 --username nithya
+// the above command is to be used
+mongoose.connect("mongodb+srv://nithya:nithya%40123@cluster0.zgobaev.mongodb.net/?retryWrites=true&w=majority");
 //create database schema
 const itemsSchema = {
         name: {
@@ -73,7 +75,7 @@ app.get('/', function(req, res) {
                         async function insert() {
                             await Item.insertMany(defaultItems).then(() => {
 
-                                // console.log("Succesfully saved to todoListDB");
+                                // c onsole.log("Succesfully saved to todoListDB");
 
                             }).catch((err) => {
                                 // console.log("error" + err);
